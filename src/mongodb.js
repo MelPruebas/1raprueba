@@ -15,10 +15,10 @@ const LoginSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        require:true
+        required:true
     }
 })
 
-const collection = new mongoose.model("Collection1", LoginSchema)
+const collection = new mongoose.model("Collection2", LoginSchema)
 
 module.exports=collection

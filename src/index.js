@@ -9,6 +9,7 @@ const collection=require("./mongodb");
 app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, '../tempelates'));
+app.use(express.urlencoded({extended:false}))
 
 app.get("/",(req, res)=>{
     res.render("login")
@@ -25,6 +26,23 @@ app.post("/signup",async (req, res)=>{
     await collection.insertMany([data])
 
     res.render("home")
+})
+app.post("/login",async (req, res)=>{
+   
+     
+
+    try {
+        const check =await collection.findOne({name:req.body.name})
+
+        if (check.password===req.body.password){
+            res.render("home")
+        }
+        else{
+            res.send("wrong password")
+        }
+    } catch  {
+        res.send("wrong details")
+    }
 })
 
 
